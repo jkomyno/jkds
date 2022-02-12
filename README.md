@@ -14,7 +14,7 @@ aims to be a helpful resource to showcase how to implement data structures in a 
 # Build and Test
 
 This project supports [CMake](https://cmake.org/) 3.20+.
-Unit tests are run using the [GoogleTest](https://github.com/google/googletest).
+Unit tests are run using the [GoogleTest](https://github.com/google/googletest) suite.
 
 ```
 git clone https://github.com/jkomyno/jkds
