@@ -272,6 +272,68 @@ int main() {
 }
 ```
 
+### DisjointSet
+
+The `DisjointSet<T>` class (defined in [`disjoint_set.h`](`./include/jkds/container/disjoint_set.h`)) models a [disjoint set](https://en.wikipedia.org/wiki/Disjoint-set_data_structure) data structure (also known as union-find).
+DisjointSet is optimized, as it implements the union-by-rank policy paired with path-splitting compression,
+which results in almost constant time complexity for the main methods. 
+
+We denote the [iterated logarithm](https://en.wikipedia.org/wiki/Iterated_logarithm) as `lg^*`.
+For `n < 2^65536`, `(lg^* n) <= 5`.
+The methods exposed by DisjointSet are:
+
+- `add(const T& x)`: Add a new entry to the disjoint set, returning the index of the resulting node. Time complexity: `O(1)` amortized.
+- `unite(const T& x, const T& y)`: Merge two dynamic sets which contain the x and y elements, respectively, into a new set
+that is the union of the two sets.
+x is assumed to be different than y. Time complexity: `O(lg^* n)` amortized.
+- `are_connected(const T& x, const T& y)`: Return true if and only if the given two elements are in the same representative set. Time complexity: `O(lg^* n)` amortized.
+- `get_sets()`: Snapshots the representative sets. Time complexity: `O(n + lg^* n)`.
+
+**Note**: `DisjointSet<T>` is implemented using a `std::unordered_map<T, std::size_t>` container internally.
+This implies that your values' types must have a `std::hash<T>` implementation.
+
+#### Example usage
+
+```c++
+#include <iostream>
+#include <vector>
+#include <jkds/container/disjoint_set.h>
+
+int main() {
+  auto bool_to_string = [](const bool v) { return v ? "Yes" : "No"; };
+
+  jkds::container::DisjointSet<char> ds{{'a', 'b', 'c', 'd', 'e'}};
+
+  // initially every element is separated in its own representative set:
+  // -> {{'a'}, {'b'}, {'c'}, {'d'}, {'e'}}
+
+  std::cout << "Are 'a' and 'b' connected? " << bool_to_string(ds.are_connected('a', 'b')) << '\n';
+  std::cout << "Are 'c' and 'd' connected? " << bool_to_string(ds.are_connected('c', 'd')) << '\n';
+
+  // Output:
+  // Are 'a' and 'b' connected? No
+  // Are 'c' and 'd' connected? No
+
+  ds.unite('a', 'b');
+  ds.unite('c', 'd');
+
+  // now 'a' is together with 'b', and 'c' is together with 'd':
+  // -> {{'a', 'b'}, {'c', 'd'}, {'e'}}
+
+  std::cout << "Are 'a' and 'b' connected? " << bool_to_string(ds.are_connected('a', 'b')) << '\n';
+  std::cout << "Are 'c' and 'd' connected? " << bool_to_string(ds.are_connected('c', 'd')) << '\n';
+
+  // Output:
+  // Are 'a' and 'b' connected? Yes
+  // Are 'c' and 'd' connected? Yes
+
+  ds.add('f');
+
+  // now 'f' is a new entry of the disjoint set:
+  // -> {{'a', 'b'}, {'c', 'd'}, {'e'}, {'f'}}
+}
+```
+
 ### SparseByteSet
 
 The `SparseByteSet` class (defined in [`sparse_byte_set.h`](`./include/jkds/container/sparse_byte_set.h`)) represents
