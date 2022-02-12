@@ -16,7 +16,7 @@ namespace {
   struct Pod {
     char value;
 
-    Pod(char value) : value(value) {
+    explicit Pod(char value) : value(value) {
     }
 
     bool operator==(const Pod& other) const {
