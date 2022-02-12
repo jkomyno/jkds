@@ -22,7 +22,9 @@ add_executable(${TESTS_EXECUTABLE}
     "${CMAKE_CURRENT_LIST_DIR}/container/sparse_byte_set_test.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/functional/fmap_test.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/functional/zip_test.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/util/range_test.cpp")
+    "${CMAKE_CURRENT_LIST_DIR}/util/range_test.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/util/resize_test.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/util/shift_to_value_test.cpp")
 
 target_link_libraries(${TESTS_EXECUTABLE} PRIVATE gtest_main jkds)
 gtest_discover_tests(${TESTS_EXECUTABLE})
