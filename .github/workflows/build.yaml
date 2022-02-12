@@ -19,12 +19,12 @@ jobs:
             toolchain: msvc
 
     steps:
+      # clone the repository in ${{github.workspace}}
       - uses: actions/checkout@v2
-        with:
-          submodules: true
 
       - name: Configure buildsystem
         run: |
+          # install CMake and the C++ compiler
           case "${{ matrix.host }}-${{ matrix.toolchain }}" in
             ubuntu-gcc)
               sudo apt-get install --yes g++-11 cmake
@@ -43,15 +43,23 @@ jobs:
               ;;
           esac
 
+          # configure CMake
+          cd build
           case "${{ matrix.host }}" in
             ubuntu|macos)
-              cmake . -G "Unix Makefiles"
+              cmake .. -G "Unix Makefiles"
               ;;
             windows)
-              cmake . -G "Visual Studio 17 2022" -A x64
+              cmake .. -G "Visual Studio 16 2019" -A x64
               ;;
           esac
 
-      - name: Build/Test
+      - name: Build
         run: |
-          ./build.sh
+          cd build
+          cmake --build .
+
+      - name: Test
+        run: |
+          cd build
+          ctest
