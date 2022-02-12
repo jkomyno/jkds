@@ -14,7 +14,7 @@ namespace {
     char value;
 
     Pod() = delete;
-    Pod(char value) : value(value) {
+    explicit Pod(char value) : value(value) {
     }
 
     Pod(const Pod& other) = default;

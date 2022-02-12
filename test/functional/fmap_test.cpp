@@ -15,7 +15,7 @@ namespace {
   struct Pod {
     uint8_t value;
 
-    Pod(uint8_t value) : value(value) {
+    explicit Pod(uint8_t value) : value(value) {
     }
   };
 
