@@ -12,6 +12,7 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
 add_executable(${TESTS_EXECUTABLE}
+    "${CMAKE_CURRENT_LIST_DIR}/container/disjoint_set_test.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/container/max_binary_heap_test.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/container/max_k_heap_test.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/container/max_priority_queue_binary_heap_test.cpp"
