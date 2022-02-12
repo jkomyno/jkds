@@ -1,0 +1,57 @@
+name: Build
+
+on: [push, pull_request]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ${{ matrix.host }}-latest
+
+    strategy:
+      matrix:
+        host: [ubuntu, macos]
+        toolchain: [gcc, clang]
+        include:
+          - host: windows
+            toolchain: msvc
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Configure buildsystem
+        run: |
+          case "${{ matrix.host }}-${{ matrix.toolchain }}" in
+            ubuntu-gcc)
+              sudo apt-get install --yes g++-11 cmake
+              export CC=gcc-11 CXX=g++-11
+              ;;
+            ubuntu-clang)
+              sudo apt-get install --yes g++-11 clang-11 cmake
+              export CC=clang-11 CXX=clang++-11
+              ;;
+            macos-gcc)
+              brew install gcc@11 cmake
+              export CC=gcc-11 CXX=g++-11
+              ;;
+            macos-clang)
+              brew install cmake
+              ;;
+          esac
+
+          case "${{ matrix.host }}" in
+            ubuntu|macos)
+              cmake . -G "Unix Makefiles"
+              ;;
+            windows)
+              cmake . -G "Visual Studio 17 2022" -A x64
+              ;;
+          esac
+
+      - name: Build/Test
+        run: |
+          ./build.sh
