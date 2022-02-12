@@ -38,11 +38,9 @@ namespace jkds::container {
     Compare comp_;
     std::vector<T> nodes_;
 
-    // protected constructor to let the subclass set the comparator after the initialization
     explicit Heap(const std::vector<T>& inputs) noexcept : nodes_(inputs) {
     }
 
-    // protected constructor to let the subclass set the comparator after the initialization
     explicit Heap(std::vector<T>&& inputs) noexcept : nodes_(std::move(inputs)) {
     }
 
