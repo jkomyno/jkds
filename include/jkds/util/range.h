@@ -1,4 +1,3 @@
-#include <concepts>
 #include <numeric>
 #include <vector>
 
