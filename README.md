@@ -357,11 +357,16 @@ int main() {
   s.add(255);
 
   // check whether an element appears in the set in O(1)
-  const auto appears = s.contains(127) ? "appears" : "doesn't appear";
-  std::cout << "127 " << appears << "\n";
+  std::cout << "127 " << s.contains(127) ? "appears" : "doesn't appear" << "\n";
 
   // Output:
   // 127 appears
+
+  s.reset();
+  std::cout << "127 " << s.contains(127) ? "appears" : "doesn't appear" << "\n";
+
+  // Output:
+  // 127 doesn't appear
 }
 ```
 
@@ -442,6 +447,92 @@ They are mainly used as auxiliary functions for `jkds::container`, but they may 
 ### range
 
 The `range` function (defined in [`range.h`](`./include/jkds/util/range.h`)) generates a sequential range of values of a given size.
+
+#### Example usage
+
+```c++
+#include <iostream>
+#include <vector>
+#include <jkds/util/range.h>
+
+int main() {
+  auto vec(range<size_t>(4, 100));
+
+  for (auto&& x : vec) {
+    std::cout << x ", ";
+  }
+
+  // Output:
+  // 100, 101, 102, 103
+}
+```
+
+#### resize
+
+The `resize` function (defined in [`resize.h`](`./include/jkds/util/resize.h`)) resizes any STL-compliant
+container without requiring it's value type to be default-constructible.
+
+#### Example usage
+
+```c++
+#include <iostream>
+#include <vector>
+#include <jkds/util/resize.h>
+
+struct Pod {
+  char value;
+
+  Pod() = delete;
+  Pod(char value) : value(value) {
+  }
+
+  Pod(const Pod& other) = default;
+  auto operator<=>(const Pod& rhs) const = default;
+};
+
+int main() {
+  std::vector<Pod> vec{Pod('a'), Pod('b'), Pod('c'), Pod('d')};
+
+  // This would not compile, as the compiler wouldn't find the proper overload for std::construct_at:
+  // vec.resize(2);
+
+  // This compiles
+  jkds::util::resize(vec, 2);
+
+  for (auto&& x : vec) {
+    std::cout << x ", ";
+  }
+
+  // Output:
+  // a, b
+}
+```
+
+### shift_to_value
+
+The `shift_to_value` function (defined in [`shift_to_value.h`](`./include/jkds/util/shift_to_value.h`))
+rotates a given container based on the first occurrence of the given value.
+
+#### Example usage
+
+```c++
+#include <cstdint>
+#include <iostream>
+#include <vector>
+#include <jkds/util/shift_to_value.h>
+
+int main() {
+  std::vector<uint8_t> vec{0, 10, 10, 10, 20};
+  jkds::util::shift_to_value(vec, 10);
+
+  for (auto&& x : vec) {
+    std::cout << x ", ";
+  }
+
+  // Output:
+  // 10, 10, 10, 20, 0
+}
+```
 
 # Authors
 
