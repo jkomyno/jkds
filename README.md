@@ -46,8 +46,8 @@ In a "min heap", the `std::greater<T>{}` comparison function is used for the `he
 `std::less<T>{}` is used.
 
 A number of utility factory functions are provided to easily create the type of Heap you want, namely:
-- make_min_heap<bool IsHeap = false, typename T>: create a min binary heap starting from a vector of values.
-- make_max_heap<bool IsHeap = false, typename T>: create a max binary heap starting from a vector of values.
+- `make_min_heap<bool IsHeap = false, typename T>`: create a min binary heap starting from a vector of values.
+- `make_max_heap<bool IsHeap = false, typename T>`: create a max binary heap starting from a vector of values.
 
 Optionally, if you know that the vector you're feeding to `BinaryHeap` already respects the Heap property (i.e. `std::is_heap(your_vector)` evaluates to true), you can set the template argument `IsHeap` to true. This avoids the `O(n)` time `heapify()` step. This template argument is checked at compile time using an `if constexpr` statement.
 
@@ -116,8 +116,8 @@ It exposes the same API as `BinaryHeap`, but it requires `K` as an additional te
 `KHeap`s can be more cache-friendly than `BinaryHeap`s.
 
 A number of utility factory functions are provided to easily create the type of Heap you want, namely:
-- make_min_k_heap<std::size_t K, bool IsHeap = false, typename T>: create a min `K`-ary heap starting from a vector of values.
-- make_max_k_heap<std::size_t K, bool IsHeap = false, typename T>: create a max `K`-ary heap starting from a vector of values.
+- `make_min_k_heap<std::size_t K, bool IsHeap = false, typename T>`: create a min `K`-ary heap starting from a vector of values.
+- `make_max_k_heap<std::size_t K, bool IsHeap = false, typename T>`: create a max `K`-ary heap starting from a vector of values.
 
 Optionally, if you know that the vector you're feeding to `KHeap` already respects the Heap property (i.e. `std::is_heap(your_vector)` evaluates to true), you can set the template argument `IsHeap` to true. This avoids the `O(n)` time `heapify()` step. This template argument is checked at compile time using an `if constexpr` statement.
 
