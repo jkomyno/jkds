@@ -2,6 +2,7 @@
 
 [![Build](https://github.com/jkomyno/jkds/workflows/Build/badge.svg)](https://github.com/jkomyno/jkds/actions?query=workflow:Build)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0a2fdaf68ade4424a8fa9922b624ed27)](https://www.codacy.com/gh/jkomyno/jkds/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jkomyno/jkds&amp;utm_campaign=Badge_Grade)
 
 `jkds` is a modern header-only C++20 library that complements the standard library.
 It provides generic atypical data structures, ergonomic functional programming abstractions, and then some. 
