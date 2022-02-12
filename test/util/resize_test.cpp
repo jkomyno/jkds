@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <jkds/util/resize.h>
 
+#include <compare>
 #include <vector>
 
 using namespace std;
