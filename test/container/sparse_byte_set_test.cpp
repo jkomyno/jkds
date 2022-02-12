@@ -35,6 +35,10 @@ TEST_F(SparseByteSetTest, each) {
     EXPECT_FALSE(s.add(c));
     EXPECT_TRUE(s.contains(c));
   }
+
+  s.reset();
+  EXPECT_FALSE(s.contains(5));
+  EXPECT_TRUE(s.add(5));
 }
 
 TEST_F(SparseByteSetTest, each_random) {
@@ -50,4 +54,8 @@ TEST_F(SparseByteSetTest, each_random) {
     EXPECT_TRUE(added.count(c));
     EXPECT_TRUE(s.contains(c));
   }
+
+  s.reset();
+  EXPECT_FALSE(s.contains(5));
+  EXPECT_TRUE(s.add(5));
 }

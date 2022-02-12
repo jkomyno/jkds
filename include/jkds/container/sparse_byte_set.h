@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string.h>
 #include <cstdint>
 
 namespace jkds::container {
@@ -13,6 +14,7 @@ namespace jkds::container {
    * Public methods:
    * - add(uint8_t)
    * - contains(uint8_t)
+   * - reset()
    *
    * Performance concerns:
    * - This set never allocates.
@@ -52,6 +54,16 @@ namespace jkds::container {
      */
     inline bool contains(uint8_t byte) const {
       return sparse_[byte] < size_ && dense_[sparse_[byte]] == byte;
+    }
+
+    /***
+     * Reset the byte set.
+     * Time: O(256), Space: O(1)
+     */
+    void reset() {
+      size_ = 0;
+      memset(sparse_, 0, sizeof(sparse_));
+      memset(dense_, 0, sizeof(dense_));
     }
 
   private:
