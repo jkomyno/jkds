@@ -1,6 +1,7 @@
 # jkds
 
 [![Build](https://github.com/jkomyno/jkds/workflows/Build/badge.svg)](https://github.com/jkomyno/jkds/actions?query=workflow:Build)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 `jkds` is a modern header-only C++20 library that complements the standard library.
 It provides generic atypical data structures, ergonomic functional programming abstractions, and then some. 
